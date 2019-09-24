@@ -1,0 +1,17 @@
+for word  遍历词表
+    字典[词类型] =word
+
+从正向词典改-->负向的词典.其实不用插入的时候，翻转一下就行了。
+
+构建查询树
+    节点设计：dict{label：[(词性，Start,默认：NotEnd)],nemxt:[dict{}],value:字}
+    树的插入算法：
+        for alphabet in list 词语
+            while
+                if al 在字典的next中
+                    跳到下一个字典。
+                elif al 不在字典中
+                    在next中创建一个字典。
+                    然后调到下一个字典中
+
+

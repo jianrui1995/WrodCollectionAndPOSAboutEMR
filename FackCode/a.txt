@@ -1,0 +1,10 @@
+for word  遍历词表
+    字典[词类型] =word
+
+从正向词典改-->负向的词典
+
+构建查询树
+    节点设计：dict{label：[词性，Start,默认：NotEnd],nemxt:[dict{}]}
+    树的插入算法：
+
+

@@ -1,0 +1,47 @@
+for word  遍历词表
+    字典[词类型] =word
+
+从正向词典改-->负向的词典.其实不用插入的时候，翻转一下就行了。
+
+构建查询树
+    节点设计：dict{label：[(词性，Start,默认：NotEnd)],nemxt:[dict{}],value:字}
+    树的插入算法：
+        for alphabet in list 词语
+            while
+                if al 在字典的next中
+                    跳到下一个字典。
+                elif al 不在字典中
+                    在next中创建一个字典。
+                    然后调到下一个字典中
+
+
+将句子放入查询树进行查询
+
+    查询算法 <-查询树，需要查询的句子  ->查询句子的标注序列
+        句子--变成-->字 列表
+        while 字索引 in 字列表长度：
+            list_labeled<--[]
+            temp<--查询树
+            list_found_maybe<--[]
+            list_found<--[]
+            label_maybe<--NotEnd
+            label<--NotEnd
+            for 序号 in 字索引~字列表长度
+                do
+                    if 字列表[序号] in temp的next字典中：
+                        temp 就去进一步索引
+                        label_maybe=temp的label
+                        temp的value放入list_found_maybe
+                        if label_maybe != NotEnd
+                            label=label_maybe
+                            list_found=list_found
+                    else
+                        break
+             if label 不等于 NotEnd
+                label_B 放入list_labeled
+                切片 遍历 将label_I 加入到list_labeled
+                i+数量
+             else
+                O加入到list_labeled
+                i+1
+

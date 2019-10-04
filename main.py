@@ -1,4 +1,4 @@
-from BuildQueryTree import BuildQueryTree
+from QueryTree import BuildQueryTree
 from CollectBodyWords import CollectBodyWords
 
 # 将只有一个字的部位词放到词库里面。

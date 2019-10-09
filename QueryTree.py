@@ -74,14 +74,21 @@ class BuildQueryTree():
         '''
         IsInsert=False
         temp=QueryTree
+        labeled="NotEnd"
         for i in range(0,len(list_char)):
             if list_char[i] in temp["next"]:
                 temp=temp["next"][list_char[i]]
+                labeled=temp["label"]
             else:
                 temp["next"][list_char[i]]= self.CreatNode(value=list_char[i])
                 temp=temp["next"][list_char[i]]
                 IsInsert=True
         temp["label"]=label
+        if not IsInsert:
+            if labeled !=label:
+                f=open("Data/collectSentence/DisputWord.txt","a",encoding="utf8")
+                print("".join(list_char),"  old: ",labeled,"  new: ",label,file=f,end="\n")
+                f.close()
         return QueryTree,IsInsert
 
     def InsertQueryTreeWithWords(self,label,words):
@@ -98,7 +105,8 @@ class BuildQueryTree():
 
     def SearchQueryTess(self,sentence,dire=1):
         '''
-        查询句子返回句子的序列标注
+        查询句子返回句子的序列标注。
+        注意：这里方向，此列表没有反向。
         :param sentence: 句子
         :param dire: 使用的查询树的字典是正向还是负向的字典。dire=1是正向的，dire是负向的。
         :return:
@@ -133,8 +141,29 @@ class BuildQueryTree():
             else:
                 list_labeled.append("O")
                 i=i+1
-        print(list_labeled)
 
+    def SearchQueryTreeWithWord(self,word,dire=1):
+        '''
+        输入要查询的词，直接返回label。
+        :param word:要查询的词
+        :param dire: 查询的方向，1 为正向，2 为负向。
+        :return:
+        '''
+        list_char=list(word)
+        label="NotEnd"
+        if dire==1:
+            temp=self.dict_PosQueryTree
+        if dire==2:
+            list_char=list_char.reverse()
+            temp=self.dict_NegQueryTrss
+        for char in list_char:
+            if char in temp["next"]:
+                temp=temp["next"][char]
+                label=temp["label"]
+            else:
+                label="NotEnd"
+                break
+        return label
 if __name__=="__main__":
     BQT=BuildQueryTree(StartType=2)
-    BQT.SearchQueryTess("横结肠结肠溃疡型中分化腺癌，伴粘液分泌、坏死及钙化灶")
+    BQT.SearchQueryTreeWithWord("头",1)

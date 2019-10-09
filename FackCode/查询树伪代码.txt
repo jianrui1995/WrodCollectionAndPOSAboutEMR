@@ -45,3 +45,15 @@ for word  遍历词表
                 O加入到list_labeled
                 i+1
 
+将单词放到句子中查询
+    字列表<--由词而来。
+    temp<--查询树
+    label<--NotEnd
+    for 字索引 in 字列表长度：
+        if 字列表[索引] in temp的next字典中：
+            temp就进一步索引。
+            label<--temp的value
+        else
+            跳出
+            label<--NotEnd
+    return label

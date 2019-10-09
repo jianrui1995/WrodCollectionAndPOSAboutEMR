@@ -4,13 +4,25 @@ import json
 
 class originalFile():
     def __init__(self):
-        with open("Data/Jian_DATA.json","r",encoding="utf8") as f:
-            self.dict_ori=json.load(f)
+        self.f_ori=open("Data/originalText.txt","r",encoding="utf8")
+        self.f_seg=open("Data/originalText_seg.txt","r",encoding="utf8")
+        self.ori=[list(data) for data in self.f_ori.readlines()]
+        self.seg=[data.strip().split(" ") for data in self.f_seg.readlines()]
+    def iter_ori(self):
+        yield list(self.f_ori.readline().strip())
 
-    def __iter__(self):
-        for dict_data in self.dict_ori:
-            yield list(dict_data["originalText"])
+    def iter_seg(self):
+        yield self.f_seg.readline().split(" ")
+
+
 
 sentence=originalFile()
-model=Word2Vec(sentence,size=200,workers=16)
-model.save("Data/models/word2voc.model")
+for i in range(60,141,40):
+    for j in range(200,301,50):
+        model=Word2Vec(sentence.ori,size=j,workers=32,iter=i,min_count=3)
+        model.save("Data/models/word2voc_char_size"+str(j)+"_iter"+str(i)+".model")
+for i in range(60,141,40):
+    for j in range(200,301,50):
+        model=Word2Vec(sentence.ori,size=j,workers=32,iter=i)
+        model.save("Data/models/word2voc_word_size"+str(j)+"_iter"+str(i)+".model")
+

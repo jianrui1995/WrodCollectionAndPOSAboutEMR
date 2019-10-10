@@ -6,5 +6,7 @@
     两种方法创建，一种是从wordrepository.json文件中创建，一种是直接注入词注入到查询树中，并且将词加入到wordrepository.json。
 * CollectBodyWords.py  
     对Jian_DATA.json的文件进行总结   
-* StatisticSentence.py
+* StatisticSentence.py  
     分词，然后按照句号，逗号切分，然后统计出借个切分的句子，分词之后的长度。按照长度放入不同的文件中，文件位置Data/collectionSentence/。  
+* CharEmbedding.py  
+    对字粒度进行word2vec训练。

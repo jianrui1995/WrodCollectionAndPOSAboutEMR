@@ -33,11 +33,13 @@ class LabelByHand():
                 words=json.loads(words.strip())
                 for i in range(len(words)):
                     label=BQT.SearchQueryTreeWithWord(words[i].split("***")[0],1)
-                    words[i]=words[i].split("***")[0]+"***"+label
+                    words[i]=words[i].split("***")[0]+"==="+label
                 print(json.dumps(words,ensure_ascii=False),file=f,end="\n")
 
 if __name__=="__main__":
     LBH=LabelByHand()
+
+    # 去掉重复的词
     # LBH.PassRepeat(5)
-    for i in range(2,6):
+    for i in range(1,6):
         LBH.Label(i)

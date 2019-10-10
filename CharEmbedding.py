@@ -12,5 +12,5 @@ class originalFile():
             yield list(dict_data["originalText"])
 
 sentence=originalFile()
-model=Word2Vec(sentence,size=200,workers=16)
+model=Word2Vec(sentence,size=200,workers=16,iter=500)
 model.save("Data/models/word2voc.model")

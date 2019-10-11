@@ -18,11 +18,16 @@ class LabelByHand():
                 f.truncate()
                 list_words=list(set(list_words))
                 for data in list_words:
-                    print(data,file=f,end="")
+                    print(data,file=f,end=" ")
                 f.close()
         print("去重完成!   ",[data for data in paths])
 
     def Label(self,i):
+        '''
+        给文件i根据查询树，对文件进行标注。
+        :param i:
+        :return:
+        '''
         BQT = BuildQueryTree(StartType=2)
         paths=["Data/collectSentence/"+str(num)+".txt" for num in range(1,i+1)]
         with open(paths[i-1],"r+",encoding="utf8") as f:
@@ -36,10 +41,16 @@ class LabelByHand():
                     words[i]=words[i].split("***")[0]+"==="+label
                 print(json.dumps(words,ensure_ascii=False),file=f,end="\n")
 
+    def caruchengxu(self):
+        #统计已经标注的词，插入到词库和查询树中。
+        pass
 if __name__=="__main__":
     LBH=LabelByHand()
 
     # 去掉重复的词
     # LBH.PassRepeat(5)
-    for i in range(1,6):
-        LBH.Label(i)
+
+    # 对所有的文件进行标注。
+    # for i in range(1,6):
+    #     LBH.Label(i)
+
